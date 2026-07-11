@@ -1,0 +1,22 @@
+{
+  "//": "Fragmento a fusionar en tu tauri.conf.json existente",
+  "app": {
+    "windows": [
+      {
+        "title": "Mi App",
+        "width": 960,
+        "height": 640,
+        "decorations": false,
+        "transparent": true,
+        "titleBarStyle": "Overlay"
+      }
+    ]
+  },
+  "bundle": {
+    "macOS": {
+      "minimumSystemVersion": "10.14"
+    }
+  },
+  "//macOSPrivateApi": "Necesario para apply_vibrancy en macOS. Va a nivel raíz, no dentro de 'app':",
+  "macOSPrivateApi": true
+}

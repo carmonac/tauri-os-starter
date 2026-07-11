@@ -1,0 +1,147 @@
+/* ============================================================
+   tokens.css
+   Variables de diseño por sistema operativo.
+   El atributo data-os se setea en runtime desde main.js
+   (vía @tauri-apps/plugin-os, con fallback de navegador).
+   El atributo data-theme ("light" | "dark") sigue el mismo patrón.
+   ============================================================ */
+
+:root {
+  /* Tokens neutrales, iguales en todas las plataformas */
+  --transition-fast: 120ms ease;
+  --transition-medium: 200ms cubic-bezier(0.2, 0, 0, 1);
+  --z-titlebar: 100;
+  --z-menu: 200;
+  --focus-ring: 0 0 0 2px var(--accent-soft, rgba(0, 122, 255, 0.45));
+  --scrollbar-width: 11px;
+}
+
+/* ---------------------------------------------------------
+   macOS
+   --------------------------------------------------------- */
+:root[data-os="macos"] {
+  --font-family: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
+  --font-size-base: 13px;
+  --line-height-base: 1.45;
+
+  --radius-window: 10px;
+  --radius-control: 6px;
+  --radius-pill: 999px;
+
+  --titlebar-height: 28px;
+  --control-height: 22px;
+  --control-padding-x: 12px;
+
+  --traffic-light-size: 12px;
+  --traffic-light-gap: 8px;
+
+  --shadow-window: 0 20px 48px rgba(0, 0, 0, 0.28), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+:root[data-os="macos"][data-theme="light"] {
+  --bg: #ececec;
+  --bg-elevated: #f6f6f6;
+  --bg-sunken: #e2e2e2;
+  --border: rgba(0, 0, 0, 0.12);
+  --text: #1d1d1f;
+  --text-secondary: rgba(0, 0, 0, 0.55);
+  --accent: #007aff;
+  --accent-soft: rgba(0, 122, 255, 0.35);
+  --titlebar-bg: rgba(246, 246, 246, 0.72);
+}
+:root[data-os="macos"][data-theme="dark"] {
+  --bg: #1e1e1e;
+  --bg-elevated: #2b2b2c;
+  --bg-sunken: #161616;
+  --border: rgba(255, 255, 255, 0.12);
+  --text: #f2f2f2;
+  --text-secondary: rgba(255, 255, 255, 0.55);
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.4);
+  --titlebar-bg: rgba(43, 43, 44, 0.72);
+}
+
+/* ---------------------------------------------------------
+   Windows (Fluent / Win11)
+   --------------------------------------------------------- */
+:root[data-os="windows"] {
+  --font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  --font-size-base: 14px;
+  --line-height-base: 1.4;
+
+  --radius-window: 8px;
+  --radius-control: 4px;
+  --radius-pill: 999px;
+
+  --titlebar-height: 32px;
+  --control-height: 32px;
+  --control-padding-x: 14px;
+
+  --caption-btn-width: 46px;
+
+  --shadow-window: 0 18px 40px rgba(0, 0, 0, 0.32);
+}
+:root[data-os="windows"][data-theme="light"] {
+  --bg: #f3f3f3;
+  --bg-elevated: #fbfbfb;
+  --bg-sunken: #e9e9e9;
+  --border: rgba(0, 0, 0, 0.09);
+  --text: #1b1b1b;
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --accent: #0078d4;
+  --accent-soft: rgba(0, 120, 212, 0.3);
+  --titlebar-bg: rgba(251, 251, 251, 0.78);
+}
+:root[data-os="windows"][data-theme="dark"] {
+  --bg: #202020;
+  --bg-elevated: #2c2c2c;
+  --bg-sunken: #181818;
+  --border: rgba(255, 255, 255, 0.09);
+  --text: #f5f5f5;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --accent: #4cc2ff;
+  --accent-soft: rgba(76, 194, 255, 0.32);
+  --titlebar-bg: rgba(44, 44, 44, 0.78);
+}
+
+/* ---------------------------------------------------------
+   Linux (estilo Adwaita / GNOME por defecto — punto de partida
+   razonable; KDE/Breeze se puede mapear igual cambiando estos
+   valores bajo un data-de="kde" adicional si hace falta)
+   --------------------------------------------------------- */
+:root[data-os="linux"] {
+  --font-family: "Cantarell", "Inter", "Noto Sans", sans-serif;
+  --font-size-base: 14px;
+  --line-height-base: 1.45;
+
+  --radius-window: 12px;
+  --radius-control: 6px;
+  --radius-pill: 999px;
+
+  --titlebar-height: 46px; /* headerbar de GNOME, más alta e integrada */
+  --control-height: 34px;
+  --control-padding-x: 14px;
+
+  --shadow-window: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+:root[data-os="linux"][data-theme="light"] {
+  --bg: #fafafa;
+  --bg-elevated: #ffffff;
+  --bg-sunken: #ebebeb;
+  --border: rgba(0, 0, 0, 0.12);
+  --text: #1e1e1e;
+  --text-secondary: rgba(0, 0, 0, 0.58);
+  --accent: #3584e4;
+  --accent-soft: rgba(53, 132, 228, 0.32);
+  --titlebar-bg: rgba(255, 255, 255, 0.9); /* Linux: sin blur real, ver README */
+}
+:root[data-os="linux"][data-theme="dark"] {
+  --bg: #242424;
+  --bg-elevated: #303030;
+  --bg-sunken: #1b1b1b;
+  --border: rgba(255, 255, 255, 0.1);
+  --text: #eeeeec;
+  --text-secondary: rgba(255, 255, 255, 0.58);
+  --accent: #62a0ea;
+  --accent-soft: rgba(98, 160, 234, 0.32);
+  --titlebar-bg: rgba(48, 48, 48, 0.9);
+}

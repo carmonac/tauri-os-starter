@@ -1,0 +1,303 @@
+/* ============================================================
+   components.css
+   Cada bloque tiene su variante por defecto (genérica) y luego
+   los ajustes específicos bajo [data-os="..."].
+   ============================================================ */
+
+/* ---------------------------------------------------------
+   Titlebar
+   --------------------------------------------------------- */
+.titlebar {
+  height: var(--titlebar-height);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  background: var(--titlebar-bg);
+  -webkit-app-region: drag; /* arrastra la ventana al hacer click en zonas vacías */
+  position: relative;
+  z-index: var(--z-titlebar);
+  border-bottom: 1px solid var(--border);
+}
+
+.titlebar-title {
+  flex: 1;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+/* Cualquier control interactivo dentro de la titlebar debe
+   excluirse del drag */
+.titlebar button,
+.window-controls {
+  -webkit-app-region: no-drag;
+}
+
+/* --- macOS: semáforo a la izquierda --- */
+[data-os="macos"] .titlebar {
+  padding-left: var(--traffic-light-gap);
+  justify-content: flex-start;
+}
+[data-os="macos"] .titlebar-title {
+  margin-right: calc(3 * var(--traffic-light-size) + 2 * 6px + var(--traffic-light-gap));
+}
+[data-os="macos"] .window-controls {
+  display: flex;
+  gap: 8px;
+  order: -1;
+}
+[data-os="macos"] .window-control {
+  width: var(--traffic-light-size);
+  height: var(--traffic-light-size);
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: default;
+  position: relative;
+}
+[data-os="macos"] .window-control.close { background: #ff5f57; }
+[data-os="macos"] .window-control.minimize { background: #febc2e; }
+[data-os="macos"] .window-control.maximize { background: #28c840; }
+/* El glifo (x / – / +) solo aparece en hover, como en macOS real */
+[data-os="macos"] .window-control::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+[data-os="macos"] .window-controls:hover .window-control::after {
+  opacity: 1;
+}
+
+/* --- Windows: caption buttons a la derecha --- */
+[data-os="windows"] .titlebar {
+  padding-left: 12px;
+  justify-content: flex-start;
+}
+[data-os="windows"] .titlebar-title {
+  text-align: left;
+  font-weight: 400;
+}
+[data-os="windows"] .window-controls {
+  margin-left: auto;
+  display: flex;
+  height: 100%;
+}
+[data-os="windows"] .window-control {
+  width: var(--caption-btn-width);
+  height: 100%;
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+[data-os="windows"] .window-control:hover {
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+}
+[data-os="windows"] .window-control.close:hover {
+  background: #e81123;
+  color: #fff;
+}
+
+/* --- Linux (GNOME/Adwaita): headerbar alta, controles agrupados a la derecha --- */
+[data-os="linux"] .titlebar {
+  padding: 0 12px;
+}
+[data-os="linux"] .titlebar-title {
+  text-align: left;
+  font-weight: 700;
+  font-size: 13.5px;
+}
+[data-os="linux"] .window-controls {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+}
+[data-os="linux"] .window-control {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: color-mix(in srgb, var(--text) 7%, transparent);
+  transition: background var(--transition-fast);
+}
+[data-os="linux"] .window-control:hover {
+  background: color-mix(in srgb, var(--text) 14%, transparent);
+}
+[data-os="linux"] .window-control.close:hover {
+  background: #e01b24;
+  color: #fff;
+}
+
+/* ---------------------------------------------------------
+   Botones
+   --------------------------------------------------------- */
+.btn {
+  height: var(--control-height);
+  padding: 0 var(--control-padding-x);
+  border-radius: var(--radius-control);
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  color: var(--text);
+  font-weight: 500;
+  cursor: default;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: #fff;
+}
+
+[data-os="macos"] .btn {
+  font-size: 12.5px;
+}
+[data-os="macos"] .btn-primary:hover {
+  filter: brightness(1.07);
+}
+
+[data-os="windows"] .btn {
+  font-size: 13.5px;
+}
+[data-os="windows"] .btn:hover {
+  background: color-mix(in srgb, var(--text) 6%, var(--bg-elevated));
+}
+
+[data-os="linux"] .btn {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+[data-os="linux"] .btn:hover {
+  background: color-mix(in srgb, var(--text) 8%, var(--bg-elevated));
+}
+
+/* ---------------------------------------------------------
+   Switch (toggle)
+   --------------------------------------------------------- */
+.switch {
+  --switch-w: 38px;
+  --switch-h: 22px;
+  width: var(--switch-w);
+  height: var(--switch-h);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--text) 18%, transparent);
+  position: relative;
+  border: none;
+  padding: 0;
+  cursor: default;
+  transition: background var(--transition-medium);
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(var(--switch-h) - 4px);
+  height: calc(var(--switch-h) - 4px);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform var(--transition-medium);
+}
+.switch[aria-checked="true"] {
+  background: var(--accent);
+}
+.switch[aria-checked="true"]::after {
+  transform: translateX(calc(var(--switch-w) - var(--switch-h)));
+}
+
+/* Windows usa una pill algo más rectangular y un punto más pequeño */
+[data-os="windows"] .switch {
+  --switch-w: 40px;
+  --switch-h: 20px;
+  border-radius: 10px;
+}
+[data-os="windows"] .switch::after {
+  border-radius: 50%;
+}
+
+/* ---------------------------------------------------------
+   Sidebar
+   --------------------------------------------------------- */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--bg-sunken);
+  padding: 8px;
+  overflow: auto;
+}
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: var(--radius-control);
+  color: var(--text-secondary);
+  font-size: 13px;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.sidebar-item:hover {
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+}
+.sidebar-item.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+[data-os="linux"] .sidebar-item {
+  border-radius: var(--radius-control);
+}
+[data-os="windows"] .sidebar-item.active {
+  border-radius: 4px;
+}
+[data-os="windows"] .sidebar-item.active::before {
+  content: "";
+  position: absolute;
+  /* acento de barrita lateral típico de Fluent, opcional:
+     requiere position:relative en .sidebar-item si se activa */
+}
+
+/* ---------------------------------------------------------
+   Menú contextual
+   --------------------------------------------------------- */
+.context-menu {
+  position: absolute;
+  z-index: var(--z-menu);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+  padding: 4px;
+  min-width: 180px;
+}
+.context-menu-item {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  border-radius: calc(var(--radius-control) - 2px);
+  font-size: 13px;
+  color: var(--text);
+}
+.context-menu-item:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.context-menu-separator {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 2px;
+}

@@ -1,0 +1,124 @@
+/* ============================================================
+   base.css
+   Reset + reglas base. Independiente de plataforma: solo
+   consume los tokens definidos en tokens.css.
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  /* Importante para transparencia/vibrancy: el fondo lo pone
+     la ventana nativa (window-vibrancy) o --bg si no hay vibrancy. */
+  background: transparent;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  user-select: none; /* las apps de escritorio no seleccionan texto por defecto */
+}
+
+/* El texto dentro de áreas de contenido sí debe ser seleccionable */
+.content,
+.content * {
+  user-select: text;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* Foco visible, accesible, consistente entre plataformas */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-control);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   Layout raíz de la app: ventana con marco redondeado
+   propio (necesario porque decorations:false o transparent:true
+   hacen que el SO ya no recorte la ventana por ti).
+   --------------------------------------------------------- */
+.app-window {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-window);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-window);
+  background: var(--bg);
+}
+
+/* Si usas vibrancy real (mac/Windows), pon esta clase en .app-window
+   desde JS una vez confirmado que apply_vibrancy/apply_mica funcionó,
+   para que el fondo sea semi-transparente y deje ver el blur nativo. */
+.app-window.vibrancy-active {
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+}
+
+.app-content {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.sidebar + .content {
+  border-left: 1px solid var(--border);
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+  padding: 20px;
+}
+
+/* Scrollbars: WebKit (todas las webviews de Tauri son WebKit-based:
+   WKWebView en mac, WebView2/Chromium en Windows, WebKitGTK en Linux) */
+.content::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.content::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--text) 25%, transparent);
+  border-radius: var(--radius-pill);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+.content::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--text) 40%, transparent);
+  background-clip: padding-box;
+}

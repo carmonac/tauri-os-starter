@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tauri OS-Native CSS Starter</title>
+    <link rel="stylesheet" href="./styles/tokens.css" />
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/components.css" />
+  </head>
+  <body>
+    <div class="app-window">
+      <div class="titlebar">
+        <div class="window-controls">
+          <button class="window-control close" aria-label="Cerrar"></button>
+          <button class="window-control minimize" aria-label="Minimizar"></button>
+          <button class="window-control maximize" aria-label="Maximizar"></button>
+        </div>
+        <div class="titlebar-title">Mi App</div>
+      </div>
+
+      <div class="app-content">
+        <nav class="sidebar">
+          <div class="sidebar-item active">Inicio</div>
+          <div class="sidebar-item">Proyectos</div>
+          <div class="sidebar-item">Ajustes</div>
+        </nav>
+
+        <main class="content">
+          <h2 style="margin-top:0">Componentes</h2>
+
+          <p style="color:var(--text-secondary)">
+            Esta vista cambia de estilo según <code>data-os</code> en
+            &lt;html&gt; (lo setea <code>main.js</code> en runtime).
+          </p>
+
+          <div style="display:flex; gap:10px; margin:16px 0;">
+            <button class="btn">Cancelar</button>
+            <button class="btn btn-primary">Guardar</button>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:10px; margin:16px 0;">
+            <button class="switch" role="switch" aria-checked="true"></button>
+            <span>Notificaciones activadas</span>
+          </div>
+
+          <div class="context-menu" style="position:static; display:inline-block;">
+            <div class="context-menu-item">Copiar</div>
+            <div class="context-menu-item">Pegar</div>
+            <div class="context-menu-separator"></div>
+            <div class="context-menu-item">Eliminar</div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
