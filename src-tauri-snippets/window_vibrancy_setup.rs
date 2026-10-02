@@ -1,9 +1,3 @@
-// src-tauri/src/lib.rs (o main.rs)
-// Requiere: cargo add window-vibrancy
-//
-// Aplica el efecto nativo de cristal según plataforma. En Linux no hace
-// nada (no soportado por window-vibrancy; depende del compositor).
-
 use tauri::Manager;
 #[cfg(target_os = "macos")]
 use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
@@ -23,16 +17,11 @@ pub fn run() {
 
             #[cfg(target_os = "windows")]
             {
-                // Intenta Mica (Win11) y si falla, cae a acrylic/blur (Win10)
                 if apply_mica(&window, None).is_err() {
                     let _ = apply_acrylic(&window, Some((18, 18, 18, 125)))
                         .or_else(|_| apply_blur(&window, Some((18, 18, 18, 125))));
                 }
             }
-
-            // Linux: sin vibrancy nativa disponible vía este crate.
-            // El fallback visual lo resuelve --titlebar-bg en tokens.css
-            // (fondo semi-opaco en vez de blur real).
 
             Ok(())
         })

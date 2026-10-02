@@ -1,5 +1,4 @@
 {
-  "//": "Fragmento a fusionar en tu tauri.conf.json existente",
   "app": {
     "windows": [
       {
@@ -17,6 +16,5 @@
       "minimumSystemVersion": "10.14"
     }
   },
-  "//macOSPrivateApi": "Necesario para apply_vibrancy en macOS. Va a nivel raíz, no dentro de 'app':",
   "macOSPrivateApi": true
 }

@@ -1,19 +1,10 @@
-/* ============================================================
-   components.css
-   Cada bloque tiene su variante por defecto (genérica) y luego
-   los ajustes específicos bajo [data-os="..."].
-   ============================================================ */
-
-/* ---------------------------------------------------------
-   Titlebar
-   --------------------------------------------------------- */
 .titlebar {
   height: var(--titlebar-height);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   background: var(--titlebar-bg);
-  -webkit-app-region: drag; /* arrastra la ventana al hacer click en zonas vacías */
+  -webkit-app-region: drag;
   position: relative;
   z-index: var(--z-titlebar);
   border-bottom: 1px solid var(--border);
@@ -28,14 +19,11 @@
   pointer-events: none;
 }
 
-/* Cualquier control interactivo dentro de la titlebar debe
-   excluirse del drag */
 .titlebar button,
 .window-controls {
   -webkit-app-region: no-drag;
 }
 
-/* --- macOS: semáforo a la izquierda --- */
 [data-os="macos"] .titlebar {
   padding-left: var(--traffic-light-gap);
   justify-content: flex-start;
@@ -60,7 +48,6 @@
 [data-os="macos"] .window-control.close { background: #ff5f57; }
 [data-os="macos"] .window-control.minimize { background: #febc2e; }
 [data-os="macos"] .window-control.maximize { background: #28c840; }
-/* El glifo (x / – / +) solo aparece en hover, como en macOS real */
 [data-os="macos"] .window-control::after {
   content: "";
   position: absolute;
@@ -72,7 +59,6 @@
   opacity: 1;
 }
 
-/* --- Windows: caption buttons a la derecha --- */
 [data-os="windows"] .titlebar {
   padding-left: 12px;
   justify-content: flex-start;
@@ -105,7 +91,6 @@
   color: #fff;
 }
 
-/* --- Linux (GNOME/Adwaita): headerbar alta, controles agrupados a la derecha --- */
 [data-os="linux"] .titlebar {
   padding: 0 12px;
 }
@@ -135,9 +120,6 @@
   color: #fff;
 }
 
-/* ---------------------------------------------------------
-   Botones
-   --------------------------------------------------------- */
 .btn {
   height: var(--control-height);
   padding: 0 var(--control-padding-x);
@@ -183,9 +165,6 @@
   background: color-mix(in srgb, var(--text) 8%, var(--bg-elevated));
 }
 
-/* ---------------------------------------------------------
-   Switch (toggle)
-   --------------------------------------------------------- */
 .switch {
   --switch-w: 38px;
   --switch-h: 22px;
@@ -218,7 +197,6 @@
   transform: translateX(calc(var(--switch-w) - var(--switch-h)));
 }
 
-/* Windows usa una pill algo más rectangular y un punto más pequeño */
 [data-os="windows"] .switch {
   --switch-w: 40px;
   --switch-h: 20px;
@@ -228,9 +206,6 @@
   border-radius: 50%;
 }
 
-/* ---------------------------------------------------------
-   Sidebar
-   --------------------------------------------------------- */
 .sidebar {
   width: 220px;
   flex-shrink: 0;
@@ -266,13 +241,8 @@
 [data-os="windows"] .sidebar-item.active::before {
   content: "";
   position: absolute;
-  /* acento de barrita lateral típico de Fluent, opcional:
-     requiere position:relative en .sidebar-item si se activa */
 }
 
-/* ---------------------------------------------------------
-   Menú contextual
-   --------------------------------------------------------- */
 .context-menu {
   position: absolute;
   z-index: var(--z-menu);
